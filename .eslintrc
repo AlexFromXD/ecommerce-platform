@@ -1,0 +1,85 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": 0,
+    "curly": "error",
+    "brace-style": "error",
+    "semi": ["error", "never"],
+    "eqeqeq": ["error", "always"],
+    "quotes": ["error", "single", {
+      "allowTemplateLiterals": true
+    }],
+    "no-multiple-empty-lines": ["error", {
+      "max": 1,
+      "maxEOF": 1
+    }],
+    "object-curly-spacing": ["error", "always"],
+    "no-empty-function": "off",
+    "comma-spacing": ["error", {
+      "before": false,
+      "after": true
+    }],
+    "key-spacing": ["error", {
+      "beforeColon": false,
+      "afterColon": true
+    }],
+    "semi-spacing": [1, {
+      "before": false,
+      "after": true
+    }],
+    "no-fallthrough": "off",
+    "space-infix-ops": ["error"],
+    "space-before-blocks": ["error", {
+      "functions": "always",
+      "keywords": "always",
+      "classes": "always"
+    }],
+    "eol-last": ["error", "always"],
+    "space-before-function-paren": "off",
+    "@typescript-eslint/semi": ["error", "never", {
+      "beforeStatementContinuationChars": "always"
+    }],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/keyword-spacing": ["error"],
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-inferrable-types": [
+      "warn", {
+        "ignoreParameters": true
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": ["error", {
+      "classes": false,
+      "enums": false,
+      "functions": false
+    }],
+    "@typescript-eslint/no-var-requires": 0
+  },
+  "ignorePatterns": [
+    "**/*.js"
+  ]
+}
