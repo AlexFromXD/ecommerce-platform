@@ -74,7 +74,6 @@ export class OrderController {
     }
 
     Object.assign(originProductQuantityMap, newProductQuantityMap)
-    console.log(Object.entries(originProductQuantityMap))
 
     const orderDetailList = Object.entries(originProductQuantityMap).map(
       x =>
