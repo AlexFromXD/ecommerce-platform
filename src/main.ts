@@ -1,9 +1,12 @@
+// load .env
+require('dotenv').config()
+
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { AppModule } from './app.module'
+import { ApiModule } from './api/api.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(ApiModule)
 
   const documentOptions = new DocumentBuilder().build()
   const document = SwaggerModule.createDocument(app, documentOptions)

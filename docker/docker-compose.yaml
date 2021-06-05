@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - ecommerce_2021:/data
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'ecommerce_2021'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'YuUxc>6J.V%_V4+'
+      MYSQL_ROOT_PASSWORD: 'YuUxc>6J.V%_V4+'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ecommerce_2021:/var/lib/mysql
+volumes:
+  ecommerce_2021:
