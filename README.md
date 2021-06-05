@@ -5,5 +5,3 @@
 ### [GET] /product/:productID/detail
 
 ### [POST] /order
-
-### [POST] /auth/login

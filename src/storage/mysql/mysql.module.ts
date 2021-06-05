@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
+import { Order, OrderDetail } from '../../api/order/order.entity'
+import { Product } from '../../api/product/product.entity'
 import { Define } from '../../define'
-import { Product } from './entity/product.entity'
-const entityList = [Product]
+
+const entityList = [Product, Order, OrderDetail]
 
 // support read-write separation
 const ConnectionModule = [
