@@ -4,9 +4,11 @@ require('dotenv').config()
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { start } from 'elastic-apm-node'
 import { ApiModule } from './api/api.module'
 
 async function bootstrap() {
+  start()
   const app = await NestFactory.create(ApiModule)
   const documentOptions = new DocumentBuilder().build()
   const document = SwaggerModule.createDocument(app, documentOptions)
