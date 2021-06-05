@@ -19,7 +19,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      - eak
+      - ecommerce-service
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.13.1
     container_name: es02
@@ -37,7 +37,7 @@ services:
     volumes:
       - data02:/usr/share/elasticsearch/data
     networks:
-      - eak
+      - ecommerce-service
   kibana:
     image: docker.elastic.co/kibana/kibana:7.13.1
     container_name: kibana
@@ -47,7 +47,7 @@ services:
       ELASTICSEARCH_URL: http://es01:9200
       ELASTICSEARCH_HOSTS: '["http://es01:9200","http://es02:9200"]'
     networks:
-      - eak
+      - ecommerce-service
   apm:
     image: docker.elastic.co/apm/apm-server:7.13.1
     ports:
@@ -55,7 +55,7 @@ services:
     volumes:
       - ./config/apm-server.docker.yml:/usr/share/apm-server/apm-server.yml:ro
     networks:
-      - eak
+      - ecommerce-service
     depends_on:
       - es01
       - es02
@@ -64,6 +64,8 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
+    networks:
+      - ecommerce-service
     volumes:
       - ./storage/redis:/data
   mysql:
@@ -76,17 +78,43 @@ services:
       MYSQL_ROOT_PASSWORD: 'YuUxc>6J.V%_V4+'
     ports:
       - '3306:3306'
+    networks:
+      - ecommerce-service
     expose:
       - '3306'
     volumes:
       - ./storage/mysql:/var/lib/mysql
-
+  api-server:
+    build:
+      context: ../
+      dockerfile: docker/dockerfile
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_REPLICA_HOST: mysql
+      MYSQL_DATABASE: ecommerce_2021
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: YuUxc>6J.V%_V4+
+      MYSQL_PORT: '3306'
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ''
+      REDIS_PORT: '6379'
+      ELASTIC_APM_SERVICE_NAME: ecommerce-api-server
+      ELASTIC_APM_SERVER_URL: http://apm:8200
+      ELASTIC_APM_ACTIVE: 'true'
+    ports:
+      - '3000:3000'
+    networks:
+      - ecommerce-service
+    depends_on:
+      - mysql
+      - redis
+      - apm
+    command: npm run start:prod
 volumes:
   data01:
     driver: local
   data02:
     driver: local
-
 networks:
-  eak:
+  ecommerce-service:
     driver: bridge

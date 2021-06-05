@@ -1,0 +1,18 @@
+FROM node:14-alpine as build
+
+#  --- install dep cache ---
+COPY package.json package-lock.json /work/
+WORKDIR /work
+
+ENV PATH="$PATH:./node_modules/.bin"
+
+RUN npm install --quiet
+#  --- install dep cache ---
+
+COPY tsconfig.json tsconfig.build.json nest-cli.json .env /work/
+COPY augment /work/augment
+COPY src /work/src
+
+WORKDIR /work
+
+RUN npm run build
