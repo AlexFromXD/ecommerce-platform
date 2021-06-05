@@ -89,12 +89,12 @@ services:
       context: ../
       dockerfile: docker/dockerfile
     restart: always
-      healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:3000/"]
-        interval: 30s
-        timeout: 1s
-        retries: 3
-        start_period: 60s
+    healthcheck:
+      test: ['CMD', 'curl', 'http://localhost:3000/']
+      interval: 30s
+      timeout: 1s
+      retries: 3
+      start_period: 60s
     environment:
       MYSQL_HOST: mysql
       MYSQL_REPLICA_HOST: mysql

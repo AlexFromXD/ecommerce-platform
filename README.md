@@ -9,13 +9,19 @@
 #### Get started
 
 ```
+# deploy service
 $ docker-compose -f docker/docker-compose.yaml up -d
+
+# rebuild api service
+$ docker-compose -f docker/docker-compose.yaml build api-server
 ```
 
 #### Get Document Here
 
 ```
+
 http://localhost:3000/document/#/
+
 ```
 
 ![swagger](./image/swagger.png)
@@ -23,7 +29,9 @@ http://localhost:3000/document/#/
 #### Get Log Here
 
 ```
+
 http://localhost:5601/app/apm/services
+
 ```
 
 ![apm](./image/apm.png)
@@ -46,10 +54,24 @@ http://localhost:5601/app/apm/services
 >   -H 'Host: localhost:3000'
 > ```
 >
-> ##### Put Order
+> ##### Create Order
 >
 > ```
 > curl -X PUT \
->   'http://localhost:3000/product/1/detail' \
->   -H 'Host: localhost:3000'
+> http://localhost:3000/order \
+> -H 'Content-Type: application/json' \
+> -H 'Host: localhost:3000' \
+> -H 'x-user-session: b61c9a51-b750-4353-a0f2-faaa1a1d8431' \
+> -d '{
+>   "productList": [
+>     {
+>       "productID": 1,
+>       "quantity": 2
+>     },
+>     {
+>       "productID": 2,
+>       "quantity": 3
+>     }
+>   ]
+> }'
 > ```
